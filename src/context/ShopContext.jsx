@@ -36,6 +36,7 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+
     if (token) {
       try {
         await axios.post('http://localhost:4000/api/cart/add',{itemId,size},{headers:{token}})
@@ -109,7 +110,7 @@ const ShopContextProvider = (props) => {
 
   const getUserCart = async (token) => {
     try {
-      const response = axios.post('http://localhost:4000/api/cart/get',{},{headers:{token}})
+      const response = await axios.post('http://localhost:4000/api/cart/get',{},{headers:{token}})
       if (response.data.success) {
         setCartItems(response.data.cartData)
       }
@@ -140,6 +141,7 @@ const ShopContextProvider = (props) => {
     setShowSearch,
     cartItems,
     addToCart,
+    setCartItems,
     getCartCount,
     updateQuantity,
     getCartAmount,
